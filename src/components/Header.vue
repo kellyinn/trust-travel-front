@@ -88,6 +88,7 @@
     methods: {
       async getNavData () {
         const { data } = await this.axios.get('/api/nav');
+        console.log(data);
         this.navData = data;
         // console.log(data);
       },

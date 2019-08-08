@@ -1,4 +1,4 @@
-# airbnb
+# Trust Travel
 
 > A Vue.js project
 
