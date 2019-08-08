@@ -3,6 +3,7 @@
     <div class="wrapper">
       <div class="choice-wrap">
         <a href="javascript:;" class="choice-item active">房源</a>
+        <a href="javascript:;" class="choice-item ">景区</a>
         <a href="javascript:;" class="choice-item">体验</a>
       </div>
       <div class="choice-box">

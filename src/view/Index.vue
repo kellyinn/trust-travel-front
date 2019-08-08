@@ -100,7 +100,7 @@
       </div>
       <div class="airbnb-plus">
         <div class="wrapper">
-          <h3 class="title">爱彼迎Plus已在上海推出</h3>
+          <h3 class="title">TrustTravelPlus已在上海推出</h3>
           <p class="desc">品质与设计均保证的精选房源系列</p>
           <div class="info">
             <MovePlusList :data="this.airbnbPlusData"></MovePlusList>
