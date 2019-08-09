@@ -87,7 +87,41 @@
     },
     methods: {
       async getNavData () {
-        const { data } = await this.axios.get('/api/nav');
+        //const { data } = await this.axios.get('/api/nav');
+        const data =  [
+        {
+            href: '#',
+            name: '人民币 - ￥'
+        },
+        {
+            href: '#',
+            name: '手机端'
+        },
+        {
+            href: '#',
+            name: '成为房东/体验达人'
+        },
+        {
+            href: '#',
+            name: '故事'
+        },
+        {
+            href: '#',
+            name: '心愿单'
+        },
+        {
+            href: '#',
+            name: '行程'
+        },
+        {
+            href: '#',
+            name: '消息'
+        },
+        {
+            href: '#',
+            name: '帮助'
+        }
+    ];
         console.log(data);
         this.navData = data;
         // console.log(data);
