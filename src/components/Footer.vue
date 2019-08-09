@@ -5,7 +5,7 @@
         <div class="help clearfix">
           <ul class="fl help-item">
             <li class="item-list title">
-              <a href="javascript:;">爱彼迎</a>
+              <a href="javascript:;">TrustTravel</a>
             </li>
             <li class="item-list">
               <a href="javascript:;">工作机会</a>
@@ -37,7 +37,7 @@
               <a href="javascript:;">礼品卡</a>
             </li>
             <li class="item-list">
-              <a href="javascript:;">爱彼迎公民</a>
+              <a href="javascript:;">TrustTravel用户</a>
             </li>
             <li class="item-list">
               <a href="javascript:;">商务差旅</a>
@@ -46,10 +46,10 @@
               <a href="javascript:;">旅游指南</a>
             </li>
             <li class="item-list">
-              <a href="javascript:;">爱彼迎杂志</a>
+              <a href="javascript:;">TrustTravel杂志</a>
             </li>
             <li class="item-list">
-              <a href="javascript:;">爱彼迎生活助手<span class="new"></span></a>
+              <a href="javascript:;">TrustTravel生活助手<span class="new"></span></a>
             </li>
           </ul>
           <ul class="fl help-item">
@@ -91,7 +91,7 @@
         <div class="copyright clearfix">
           <div class="left-text fl">
             <span class="iconfont logo">&#xe61c;</span>
-            <span class="info-text">© 2019 Airbnb, Inc. All rights reserved.</span>
+            <span class="info-text">© 2019 TrustTravel, Inc. All rights reserved.</span>
           </div>
           <div class="right-text fl clearfix">
             <a href="javascript:;" class="fr">CNY - ￥</a>
