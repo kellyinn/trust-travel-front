@@ -4,12 +4,6 @@
       <Header class=""></Header>
       <div class="filter clearfix">
         <div class="left-btn fl">
-          <!--<a href="javascript:;" class="item">4月2日-4月3日</a>-->
-          <!--<a href="javascript:;" class="item">人数</a>-->
-          <!--<a href="javascript:;" class="item">房源类型</a>-->
-          <!--<a href="javascript:;" class="item">价格</a>-->
-          <!--<a href="javascript:;" class="item">闪订</a>-->
-          <!--<a href="javascript:;" class="item">位置区域</a>-->
           <el-row>
             <el-button  size="medium" class="big">4月2日-4月3日</el-button>
             <el-button size="small" class="item">人数</el-button>
@@ -30,13 +24,6 @@
               </div>
             </div>
           </div>
-          <!--<el-switch class="switch"-->
-          <!--v-model="value4"-->
-          <!--active-color="rgb(0, 132, 137)"-->
-          <!--inactive-text="显示地图"-->
-          <!--active-icon-class="el-icon-check"-->
-          <!--inactive-color="#ccc">-->
-          <!--</el-switch>-->
         </div>
       </div>
     </div>

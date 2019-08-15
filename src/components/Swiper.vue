@@ -79,7 +79,7 @@
 
 <style lang="less" scoped>
 .swiper{
-  position: relative;
+  /* position: relative; */
   top: -80px;
   left: 0;
   height: 529px;

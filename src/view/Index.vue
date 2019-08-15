@@ -1088,8 +1088,8 @@
             titleDesc: '别让春暖花开成为只在照片上见过的风景。我们精选了 6 个国内赏花地，在这里你可以扑向春天，沉浸在大自然间，感受生机。',
             roomDesc: '国内赏花目的地推荐',
             roomNumber: null,
-            price: false,
-            oldPrice: false,
+            price: 200,
+            oldPrice: 300,
             evaluate: false,
             cencel: false
         },
@@ -2005,7 +2005,7 @@
         margin-bottom: 10px;
       }
       .info{
-
+        
       }
     }
     .discount{
