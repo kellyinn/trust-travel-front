@@ -13,11 +13,11 @@ import SceneInfo from '@/view/SceneInfo';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+ // mode: 'history',
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/login'
     },
     {
       path: '/index',

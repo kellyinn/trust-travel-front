@@ -113,7 +113,7 @@
                   password: this.LoginForm.password
                 }
                 // 调用axios登录接口
-                Vue.axios.post(process.env.BASE_URL + '/user/login',LoginParams).then(res => {
+                Vue.axios.post('http://123.207.73.24:3333' + '/user/login',LoginParams).then(res => {
                   console.log(res.data)
                   this.logining = false
                   // 根据返回的code判断是否成功

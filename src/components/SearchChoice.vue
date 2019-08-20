@@ -186,7 +186,7 @@
     .choice-wrap{
       padding-bottom: 15px;
       border-bottom: 1px solid #ebebeb;
-      margin-top: 20px;
+      margin-top: 120px;
       /*height: 70px;*/
       .choice-item{
         padding: 20px 0 16px;

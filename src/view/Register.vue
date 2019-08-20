@@ -137,7 +137,7 @@
                         username: this.ReginForm.username,
                         password: this.ReginForm.password,
                     }
-                    Vue.axios.post(process.env.BASE_URL + '/user',ReginParams).then((res) => {
+                    Vue.axios.post('http://123.207.73.24:3333' + '/user',ReginParams).then((res) => {
                         console.log(res.data)
                         // 让注册按钮不要在转了
                         this.logining = false
@@ -146,14 +146,12 @@
                           this.$message({
                             type: 'success',
                             message: '注册成功'
-                          })
-                          // 在这里挂上，官方说的分发，登录的action
-                          // 应该这样就行了把
+                          })     
                           this.$store.dispatch('login')
-                          // 跳转到我的信息的页面
-                          this.$router.push('/login')
+                          this.$router.push('/index')
                         }else if(res.data.message == "user existed"){
                           this.$message.error('用户已存在，请直接登录');
+                          this.$router.push('/login')
                         }else {
                           this.$message.error('注册失败');
                         }
