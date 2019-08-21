@@ -5,13 +5,13 @@
       <div class="filter clearfix">
         <div class="left-btn fl">
           <el-row>
-            <el-button  size="medium" class="big">4月2日-4月3日</el-button>
+            <!-- <el-button  size="medium" class="big">4月2日-4月3日</el-button> -->
             <el-button size="small" class="item">人数</el-button>
             <el-button size="small" class="item">房源类型</el-button>
             <el-button size="small" class="item">价格</el-button>
             <el-button size="small" class="item">闪订</el-button>
-            <el-button size="small" class="item">位置区域</el-button>
-            <el-button  size="medium" class="big">更多筛选条件 · 2</el-button>
+            <!-- <el-button size="small" class="item">位置区域</el-button> -->
+            <!-- <el-button  size="medium" class="big">更多筛选条件 · 2</el-button> -->
           </el-row>
         </div>
         <div class="right-btn fr">
@@ -32,7 +32,7 @@
         <img src="../assets/images/start.gif" alt="">
       </div>
       <div class="text">
-        <span>您的旅程在6天后就要开始了！</span>
+        <span>开启您的精彩旅行！</span>
         <span>在筛选条件中选择“闪订”，查看您即刻就能预订到的房源。</span>
       </div>
     </div>
@@ -106,7 +106,7 @@
   import Header from '../components/Header';
   import Footer from '../components/Footer';
   import CategoryList from '../components/CategoryList';
-  // import MapCategoryList from '../components/MapCategoryList';
+  import MapCategoryList from '../components/MapCategoryList';
   import { AMapManager } from 'vue-amap';
   let amapManager = new AMapManager();
   export default {
@@ -364,17 +364,14 @@
               });
               // 数据输出完成
               markerList.on('renderComplete', function (event, records) {
-                // console.log(event)
-                // console.log(records)
-                // console.log(map)
               });
               // 加载数据
               function loadData () {
                 axios.get('/api/categoryList?_page=1&_limit=15').then((res) => {
-                  // console.log(res);
+                  
                   markerList.render(res.data);
                 });
-                // console.log(typeof $(this))
+                
               }
               loadData();
               function forcusMarker (marker) {
@@ -417,6 +414,7 @@
       async getCategoryData () {
         const {data} = await this.axios.get('/api/categoryList?_page=1&_limit=15');
         // this.categoryData = data;
+        
         this.categoryData_1 = this.splitArray(data, 10)[0];
         this.categoryData_2 = this.splitArray(data, 10)[1];
         // console.log(data);

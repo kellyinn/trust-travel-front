@@ -163,7 +163,7 @@
           },
           methods: {
             getHotelOrderCount() {
-              Vue.axios.get(process.env.BASE_URL + '/hotel/count/' + this.addr).then((res) => {
+              Vue.axios.get('http://123.207.73.24:3333' + '/hotel/count/' + this.addr).then((res) => {
                 if(res.data.data !=  null){
                   this.count = res.data.data.count
                 }

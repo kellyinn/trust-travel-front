@@ -23,12 +23,6 @@
             <p class="titleDesc" v-if="info.titleDesc">{{info.titleDesc}}</p>
             <div class="price-wrap clearfix">
               <span class="price fl">￥{{info.price}}</span>
-              <div class="old-price fl clearfix" v-if="info.oldPrice">
-                <div class="info fl">
-                  <span>￥</span>{{info.oldPrice}}
-                </div>
-              </div>
-              每晚
               <span class="cencel" v-if="info.cencel">免费取消预订</span>
             </div>
             <div class="evaluate" v-if="info.evaluate">
@@ -40,9 +34,9 @@
         </li>
       </ul>
     </div>
-    <div class="footer" @click="goToCategory">
+    <!-- <div class="footer" @click="goToCategory">
       查看更多<span>{{this.city}}</span>房源 >
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -80,7 +74,6 @@
     methods: {
       showGoods (item, index) {
         this.indexActive = index;
-        // this.city = item.cityName;
         this.tran = index;
         this.city = item.cityName;
         setTimeout(() => {
@@ -90,25 +83,21 @@
       next () {
         this.move++;
         this.moveLeft = '-' + this.move * 134;
-        // console.log(this.moveLeft);
       },
       up () {
         if (this.move !== 0) {
           this.move--;
           this.moveLeft = '-' + this.move * 134;
-          // console.log(this.move);
-          // console.log(this.moveLeft);
         }
       },
-      goToCategory () {
-        this.$router.push({
-          name: 'Category'
-        });
-      }
+      // goToCategory () {
+      //   this.$router.push({
+      //     name: 'Category'
+      //   });
+      // }
     },
     watch: {
       data (newData, prevData) {
-        // console.log(newData[0]);
         this.city = newData[0].cityName;
       }
     }
@@ -287,21 +276,6 @@
           color: #484848;
           font-size: 18px;
           font-weight: bold;
-        }
-        .old-price{
-          margin-left: 5px;
-          color: #484848;
-          font-size: 16px;
-          .info{
-            font-size: 14px;
-            text-decoration: line-through;
-            margin-right: 5px;
-          }
-          span{
-            font-size: 16px;
-            color: #000;
-            font-weight: bold;
-          }
         }
         .cencel{
           color: #484848;

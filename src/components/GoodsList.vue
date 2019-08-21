@@ -15,7 +15,6 @@
                 <span>￥</span>{{item.oldPrice}}
               </div>
             </div>
-            每晚
             <span class="cencel" v-if="item.cencel">免费取消预订</span>
           </div>
           <div class="evaluate" v-if="item.evaluate">
@@ -41,9 +40,9 @@
       }
     },
     methods: {
-      toOrder () {
-        this.$router.push('/order')
-      },
+      // toOrder () {
+      //   this.$router.push('/order')
+      // },
     }
   };
 </script>

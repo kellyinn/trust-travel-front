@@ -137,36 +137,6 @@
                     <span class="iconfont type-icon">&#xe70b;</span>
                   </div>
                 </div>
-                <!--<div class="type-item clearfix fl">-->
-                  <!--<span class="type-title fl">如实描述</span>-->
-                  <!--<div class="fr icon-wrap">-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="type-item clearfix fl">-->
-                  <!--<span class="type-title fl">如实描述</span>-->
-                  <!--<div class="fr icon-wrap">-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="type-item clearfix fl">-->
-                  <!--<span class="type-title fl">如实描述</span>-->
-                  <!--<div class="fr icon-wrap">-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                    <!--<span class="iconfont type-icon">&#xe70b;</span>-->
-                  <!--</div>-->
-                <!--</div>-->
               </div>
               <div class="comment-list">
                 <div class="list-item clearfix"
@@ -222,8 +192,6 @@
                     <span class="list">{{this.infoData.location_title}}</span>,
                   </div>
                   <div class="item-text" v-if="this.infoData.sectioned_description && this.infoData.sectioned_description.neighborhood_overview">
-                    <!--<p>条条百年名路,梧桐繁茂｡排排历史建筑,岁月沧桑｡</p>-->
-                    <!--<p>{{this.infoData.sectioned_description && this.infoData.sectioned_description.neighborhood_overview}}</p>-->
                     <p v-for="(items,indes) in this.infoData.sectioned_description && this.infoData.sectioned_description.neighborhood_overview.split('\n')"
                        :key="indes"
                     >
@@ -267,15 +235,6 @@
                   <li class="list-item">
                     <span class="iconfont">&#xe6bc;</span>房源具体位置将在预订确认后提供
                   </li>
-                  <!--<li class="list-item">-->
-                    <!--<span class="iconfont">&#xe64c;</span>周边热门：珠江新城（约1.7公里）"、"广东省博物馆（约2.5公里）"、"广州塔（约3.1公里）-->
-                  <!--</li>-->
-                  <!--<li class="list-item">-->
-                    <!--<span class="iconfont">&#xe64c;</span>周边热门：珠江新城（约1.7公里）"、"广东省博物馆（约2.5公里）"、"广州塔（约3.1公里）-->
-                  <!--</li>-->
-                  <!--<li class="list-item">-->
-                    <!--<span class="iconfont">&#xe64c;</span>周边热门：珠江新城（约1.7公里）"、"广东省博物馆（约2.5公里）"、"广州塔（约3.1公里）-->
-                  <!--</li>-->
                 </ul>
                 <a href="javascript:;" class="more">查看更多周边信息</a>
               </div>
