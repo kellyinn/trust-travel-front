@@ -58,7 +58,7 @@
                         </template>                       
                        </el-table-column>
                         <el-table-column label="点评订单">
-                            <template scope="scope">
+                            <template slot-scope="scope">
                                 <el-button type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>  
                               </template> 
                         </el-table-column>
@@ -199,7 +199,7 @@
         .clearfix:after {
             clear: both
         }
-      </style>
+</style>
       <script>
        import Header from '../components/Header';
        import Vue from 'vue';
