@@ -4,11 +4,13 @@ import Router from 'vue-router';
 import Category from '@/view/Category';
 import Datail from '@/view/Datail';
 import Order from '@/view/Order';
+import HotelDetail from '@/view/HotelDetail';
 // 引入公共组件
 import Login from '@/view/Login';
 import Register from '@/view/Register';
 import HotelInfo from '@/view/HotelInfo';
 import SceneInfo from '@/view/SceneInfo';
+import HotelComment from '@/view/HotelComment';
 
 Vue.use(Router);
 
@@ -18,6 +20,7 @@ export default new Router({
     {
       path: '/',
       redirect: '/login'
+     
     },
     {
       path: '/index',
@@ -50,6 +53,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/hoteldetail/:id',
+      name: 'HotelDetail',
+      component: HotelDetail,
+      props: true
+    },
+    {
       path: '/order',
       name: 'Order',
       component: Order
@@ -63,6 +72,11 @@ export default new Router({
       path: '/hotelInfo',
       name: 'HotelInfo',
       component: HotelInfo
+    },
+    {
+      path: '/hotelComment/:index',
+      name: 'HotelComment',
+      component: HotelComment,
     },
   ]
 });

@@ -16,7 +16,7 @@
     <div class="city-goods">
       <ul class="clearfix goods-wrap" v-for="(item,index) in data" :key="index" :class="{active:indexActive === index, move:tran === ++index}">
         <li class="goods-item fl"  v-for="(info,list) in item.children" :key="list" :class="{'last-child': (list+1) %3 === 0}">
-          <a href="javascript:;">
+          <a href="javascript:;" >
             <img :src="info.imgUrl" alt="" class="goods-img">
             <div class="room-desc">{{info.roomDesc}}<span class="room-number">{{info.roomNumber}}张床</span></div>
             <p class="title">{{info.title}}</p>
@@ -34,14 +34,13 @@
         </li>
       </ul>
     </div>
-    <!-- <div class="footer" @click="goToCategory">
+    <div class="footer" @click="goToCategory">
       查看更多<span>{{this.city}}</span>房源 >
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-  import GoodsList from '../components/GoodsList';
   export default {
     name: 'CityList',
     props: {
@@ -60,9 +59,6 @@
         city: '',
         tran: 1
       };
-    },
-    components: {
-      GoodsList
     },
     computed: {
       marL () {
@@ -90,11 +86,11 @@
           this.moveLeft = '-' + this.move * 134;
         }
       },
-      // goToCategory () {
-      //   this.$router.push({
-      //     name: 'Category'
-      //   });
-      // }
+      goToCategory () {
+        this.$router.push({
+          name: 'Category'
+        });
+      },
     },
     watch: {
       data (newData, prevData) {

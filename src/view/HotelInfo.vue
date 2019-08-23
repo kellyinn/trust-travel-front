@@ -7,24 +7,79 @@
                 <p class="hotel_title">酒店订单中心</p>
                 <el-tabs v-model="activeName" >
                     <el-tab-pane label="订单详情" name="first">
-                        <el-row>
-                            <el-col :span="8" v-for="(item ,index) in hotelInfoList" :key="index"  :offset="index > 0 ? 1 : 0">
-                              <el-card :body-style="{ padding: '0px' }">
-                                <img src="../assets/images/hotel1.jpg" class="image">
-                                <div style="padding: 14px;">
-                                  <p>【旅游景点】: {{item.province}} / {{item.city}} / {{item.name}}</p>
-                                  <p>【订单价格】: {{item.price}}</p>
-                                  <p>【下单时间】: {{item.time}}</p>
-                                  <p>【订单状态】: {{item.state}}</p>
-                                  <p>【下单平台】: {{item.OTA}}</p>
-                                </div>
-                              </el-card>
-                            </el-col>
-                      </el-row>
+                      <el-table
+                        :data="hotelInfoList.slice( (currentPage - 1) * pagesize, currentPage * pagesize)" 
+                        style="width: 100%"
+                        border default-expand-all
+                        v-loading="loading">
+                        <el-table-column type="expand">
+                          <template slot-scope="props">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                              <el-form-item label="酒店：">
+                                <span>{{ props.row.hotel}}</span>
+                              </el-form-item>
+                              <el-form-item label="hash值：">
+                                <span>{{ props.row.hash }}</span>
+                              </el-form-item>
+                              <el-form-item label="房间类型：">
+                                <span>{{ props.row.roomType }}</span>
+                              </el-form-item>
+                              <el-form-item label="入住日期：">
+                                <span>{{ props.row.fromDate }}</span>
+                              </el-form-item>
+                              <el-form-item label="离店日期：">
+                                <span>{{ props.row.toDate }}</span>
+                              </el-form-item>
+                              <el-form-item label="房间价格：">
+                                <span>￥{{ props.row.totalPrice }}</span>
+                              </el-form-item>
+                              <el-form-item label="OTA：">
+                                <span>{{ props.row.OTA }}</span>
+                              </el-form-item>
+                              <el-form-item label="state：">
+                                  <span>{{ props.row.state }}</span>
+                              </el-form-item>
+                              <!-- <el-form-item >
+                                  <template scope="scope">
+                                      <el-button type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>  
+                                    </template>                                
+                              </el-form-item> -->
+                            </el-form>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          label="酒店名称"
+                          prop="hotel">
+                        </el-table-column>
+                        <el-table-column
+                        label="订单价格">
+                        <template slot-scope="scope">
+                            <span>￥{{ scope.row.totalPrice }}</span>
+                        </template>                       
+                       </el-table-column>
+                        <el-table-column label="点评订单">
+                            <template scope="scope">
+                                <el-button type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>  
+                              </template> 
+                        </el-table-column>
+                      </el-table>
+                      <el-footer>
+                          <div class="block">
+                              <el-pagination 
+                              @size-change="handleSizeChange" 
+                              @current-change="handleCurrentChange" 
+                              :current-page="currentPage" 
+                              :page-sizes="[10, 20, 50, 100]"
+                              :page-size="pagesize" 
+                              layout="total, prev, pager, next"
+                              :total="hotelInfoList.length">
+                              </el-pagination>
+                          </div>
+                      </el-footer>
                     </el-tab-pane>
                     <el-tab-pane label="评论信息" name="second">
-                        <el-row>
-                            <el-col :span="8" v-for="(item ,index) in hotelCommentList" :key="index"  :offset="index > 0 ? 1 : 0">
+                        <!-- <el-row>
+                            <el-col :span="8" v-for="(item ,index) in hotelCommentList" :key="index"  >
                               <el-card :body-style="{ padding: '0px' }">
                                 <img src="../assets/images/hotel1.jpg" class="image">
                                 <div style="padding: 14px;">
@@ -34,10 +89,8 @@
                                 </div>
                               </el-card>
                             </el-col>
-                      </el-row>
+                        </el-row> -->
                     </el-tab-pane>
-                    <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-                    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane> -->
                   </el-tabs>
                 
               </div>      
@@ -51,10 +104,22 @@
                   <a href="javascript:;" class="fr">CNY - ￥</a>
                   <a href="javascript:;" class="fr">中文（简体）</a>
                 </div>
-              </div>
+            </div>
         </div>  
       </template>
-      <style>
+<style>
+  .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 100%;
+  }
         .hotel{
           width: 100%;
          height: 100%;
@@ -145,9 +210,12 @@
         },
           data(){
             return {
+              currentPage: 1, //初始页
+            pagesize: 5, 
+            loading :false,
               activeName: 'first',
-              addr: JSON.parse(sessionStorage.getItem('addr')),
               count: '',
+              addr:'',
               hotelInfoList: [],
               hotelCommentList: [],
               content:'',
@@ -159,65 +227,90 @@
           },
           created() {
             this.getHotelOrderCount()
-           // this.orderHotelTicket()
+            
+          },
+          mounted(){
+            this.loading = true;
           },
           methods: {
+            handleSizeChange: function(size) {
+           this.pagesize = size;
+            //console.log(this.pagesize);
+        },
+        handleCurrentChange: function(currentPage) {
+            this.currentPage = currentPage;
+            //console.log("当前页: " + this.currentPage);
+        },
+        handleChange(val) {
+        //console.log(val);
+      },
             getHotelOrderCount() {
-              Vue.axios.get('http://123.207.73.24:3333' + '/hotel/count/' + this.addr).then((res) => {
+              this.addr = sessionStorage.getItem('addr')
+              Vue.axios.get('http://47.102.216.199:3333' + '/hotel/count/' + JSON.parse(this.addr)).then((res) => {
+                console.log(res.data)
                 if(res.data.data !=  null){
                   this.count = res.data.data.count
                 }
+                //this.getHotelOrdercomment()
                 this.getHotelOrderInfo()
-                this.getHotelOrdercomment()
               })
-             
+              
             },
             
             getHotelOrderInfo(){
               console.log(this.count)
               this.hotelInfoList = [];
               for(let i = 0;i<this.count ;i++){
-                Vue.axios.get(process.env.BASE_URL + '/hotel/' + this.addr + '/' + i).then((res) => {
+                Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i).then((res) => {
                     if(res.data.data !=  null){
                       res.data.data.time = this.getDate(res.data.data.time)
-                      this.hotelInfoList.push(res.data.data)
-                      console.log(res.data.data)
+                      this.hotelInfoList.push(res.data.data)              
                       //console.log(this.getDate(res.data.data.time))
                     }
                 })
-              } 
+              }
+              console.log(this.hotelInfoList)
             },
-      
-            getHotelOrdercomment(){
-              this.hotelCommentList = [];
-              for(let i = 0;  i< this.count ;i++){
-                Vue.axios.get(process.env.BASE_URL + '/hotel/comment/' + this.addr + '/' + i).then((res) => {
-                    if(res.data.data !=  null && res.data.data.exist =='true'){
-                      res.data.data.time = this.getDate(res.data.data.time)
-                      this.content = res.data.data.content
-                      this.score = res.data.data.score
-                      this.exist = res.data.data.exist
-                      this.hotelCommentList.push(res.data.data)
+            gotoHotelComment(index,row){
+              console.log(index)
+              console.log(row)
+              this.$router.push({
+              name: 'HotelComment',
+              params: {
+              index:index,
+              }
+          });
+            },
+            // getHotelOrdercomment(){
+            //   this.hotelCommentList = [];
+            //   for(let i = 0;  i< this.count ;i++){
+            //     Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + this.addr + '/' + i).then((res) => {
+            //         if(res.data.data !=  null && res.data.data.exist =='true'){
+            //           res.data.data.time = this.getDate(res.data.data.time)
+            //           this.content = res.data.data.content
+            //           this.score = res.data.data.score
+            //           this.exist = res.data.data.exist
+            //           this.hotelCommentList.push(res.data.data)
                      
-                    }
-                })
-              }
-              this.commentHotelService() 
-            },
-            commentHotelService(){
-              let commentParams = {
-                addr:this.commentForm.addr,
-                index:this.commentForm.count,
-                content:this.commentForm.content,
-                score:this.commentForm.score
-              }
-              Vue.axios.post(process.env.BASE_URL + '/hotel/comment/' ,commentParams).then((res) => {
-                console.log(res.data)
-                    if(res.data.message == 'success' && res.data.data != null){
-                     this.txhash=res.data.data.txhash   
-                    }
-                })
-            },
+            //         }
+            //     })
+            //   }
+            //   this.commentHotelService() 
+            // },
+            // commentHotelService(){
+            //   let commentParams = {
+            //     addr:this.commentForm.addr,
+            //     index:this.commentForm.count,
+            //     content:this.commentForm.content,
+            //     score:this.commentForm.score
+            //   }
+            //   Vue.axios.post('http://47.102.216.199:3333' + '/hotel/comment/' ,commentParams).then((res) => {
+            //     console.log(res.data)
+            //         if(res.data.message == 'success' && res.data.data != null){
+            //          this.txhash=res.data.data.txhash   
+            //         }
+            //     })
+            // },
             getDate(value){
               let date = new Date(value);
               let y = date.getFullYear();
@@ -233,6 +326,9 @@
               s = s < 10 ? ('0' + s) : s;
               return y + '-' + MM + '-' + d + ' ' + h + ':' + m ;
             },
+          },
+          mounted () {
+
           }
         }
       </script>

@@ -1,8 +1,8 @@
 <template>
   <div class="goods-list">
     <ul class="clearfix">
-      <li class="goods-item fl" v-for="(item,index) in data" :key="index">
-        <a href="order" @click.native="toOrder">
+      <li class="goods-item fl" v-for="(item,index) in data" :key="index" @click="gotoDetail(item,index)">
+        <a href="javascript:;">
           <img :src="item.imgUrl" alt="" class="goods-img">
           <div class="room-desc" v-if="item.roomDesc">{{item.roomDesc}}<span class="room-number" v-if="item.roomNumber">{{item.roomNumber}}张床</span></div>
           <div class="room-desc color" v-if="item.validate"><span class="plus">plus</span><span class="room-number">{{item.city}}张床</span></div>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+ import Vue from 'vue'
   export default {
     name: 'GoodsList',
     props: {
@@ -40,9 +41,15 @@
       }
     },
     methods: {
-      // toOrder () {
-      //   this.$router.push('/order')
-      // },
+        gotoDetail(item,index){
+        console.log(item)
+        this.$router.push({
+            name: 'HotelDetail',
+            params: {
+              id: item.id,
+            }
+          });
+      },
     }
   };
 </script>

@@ -5,6 +5,7 @@
     </div>
     
     <nav class="nav fr">
+        <el-button type="text" class="item" @click.native="toindex">首页</el-button>
       <el-button type="text" class="item" @click.native="tohotelinfo">酒店订单信息</el-button>
       <el-button type="text" class="item" @click.native="tosceneinfo">旅游订单信息</el-button>
       <el-button type="text" class="item" @click.native="logout">退出登录</el-button>
@@ -26,6 +27,9 @@
       }
     },
     methods: {
+      toindex(){
+        this.$router.push('/index')
+      },
       tosceneinfo(){
         this.$router.push('/sceneInfo')
       },

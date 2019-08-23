@@ -29,7 +29,7 @@
               </div>
             </div>
             每晚
-            <span class="text fr"><span class="iconfont icon">&#xe608;</span>春季特惠8.8折</span>
+            <span class="text fr"><span class="iconfont icon">&#xe608;</span>夏季特惠8.8折</span>
           </div>
         </a>
       </li>

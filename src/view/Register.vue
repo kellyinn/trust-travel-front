@@ -137,7 +137,7 @@
                         username: this.ReginForm.username,
                         password: this.ReginForm.password,
                     }
-                    Vue.axios.post('http://123.207.73.24:3333' + '/user',ReginParams).then((res) => {
+                    Vue.axios.post('http://47.102.216.199:3333' + '/user',ReginParams).then((res) => {
                         console.log(res.data)
                         // 让注册按钮不要在转了
                         this.logining = false

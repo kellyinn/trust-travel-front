@@ -113,7 +113,7 @@
                   password: this.LoginForm.password
                 }
                 // 调用axios登录接口
-                Vue.axios.post('http://123.207.73.24:3333' + '/user/login',LoginParams).then(res => {
+                Vue.axios.post('http://47.102.216.199:3333' + '/user/login',LoginParams).then(res => {
                   console.log(res.data)
                   this.logining = false
                   // 根据返回的code判断是否成功
@@ -124,6 +124,7 @@
                     })
                     // 将返回的数据注入sessionStorage
                     let addr = res.data.data.addr
+                    console.log(addr)
                     //let username= this.LoginParams.username
                     sessionStorage.setItem('addr', JSON.stringify(addr))
                     //sessionStorage.setItem('username',JSON.stringify(username))
@@ -133,8 +134,9 @@
                     // 跳转到我的信息的页面
                     this.$router.push('/index')
                     
-                  } else {
-                    this.$message.error('登录失败');
+                  } else if(res.data.message == 'username or password error'){
+                    this.$router.push('/register')
+                    this.$message.error('请去注册');
                   }
                 })
               } else {

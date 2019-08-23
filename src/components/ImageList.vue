@@ -31,10 +31,7 @@
       <div class="btn">
       <a href="javascript:;"></a>
       </div>
-      <div class="btn-group">
-        <span class="iconfont wrap">&#xe609;<span class="text">分享</span></span>
-        <span class="iconfont wrap">&#xe62a;<span class="text">保存</span></span>
-      </div>
+
       <a href="javascript:;" class="check">查看照片</a>
     </div>
     <SmallImagList :data="data" :title="title" :show.sync="showsmall" :change-index="changeIndex"></SmallImagList>
@@ -128,22 +125,7 @@
         }
       }
     }
-    .btn-group{
-      position: absolute;
-      top: 6%;
-      right: 2%;
-      .wrap{
-        margin-left: 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        padding: 10px 15px;
-        box-sizing: border-box;
-        cursor: pointer;
-        .text{
-          margin-left: 5px;
-        }
-      }
-    }
+    
     .check{
       position: absolute;
       bottom: 5%;
