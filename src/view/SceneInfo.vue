@@ -175,7 +175,7 @@
         console.log(this.count)
         this.sceneInfoList = [];
         for(let i = 0;i<this.count ;i++){
-          Vue.axios.get(process.env.BASE_URL + '/scene/' + this.addr + '/' + i).then((res) => {
+          Vue.axios.get('http://47.102.216.199:3333' + '/scene/' + this.addr + '/' + i).then((res) => {
               if(res.data.data !=  null){
                 res.data.data.time = this.getDate(res.data.data.time)
                 this.sceneInfoList.push(res.data.data)
@@ -189,7 +189,7 @@
       getSceneOrdercomment(){
         this.sceneCommentList = [];
         for(let i = 0;  i< this.count ;i++){
-          Vue.axios.get(process.env.BASE_URL + '/scene/comment/' + this.addr + '/' + i).then((res) => {
+          Vue.axios.get('http://47.102.216.199:3333' + '/scene/comment/' + this.addr + '/' + i).then((res) => {
               if(res.data.data !=  null ){
                 res.data.data.time = this.getDate(res.data.data.time)
                 this.content = res.data.data.content
@@ -200,7 +200,7 @@
               }
           })
         }
-        this.commentSceneService() 
+        //this.commentSceneService() 
       },
       commentSceneService(){
         let commentParams = {
@@ -209,7 +209,7 @@
           //content:this.commentForm.content,
           //score:this.commentForm.score
         }
-        Vue.axios.post(process.env.BASE_URL + '/scene/comment/' ,commentParams).then((res) => {
+        Vue.axios.post('http://47.102.216.199:3333' + '/scene/comment/' ,commentParams).then((res) => {
           console.log(res.data)
               if(res.data.message == 'success' && res.data.data != null){
                this.txhash=res.data.data.txhash   

@@ -18,9 +18,6 @@
                               <el-form-item label="酒店：">
                                 <span>{{ props.row.hotel}}</span>
                               </el-form-item>
-                              <el-form-item label="hash值：">
-                                <span>{{ props.row.hash }}</span>
-                              </el-form-item>
                               <el-form-item label="房间类型：">
                                 <span>{{ props.row.roomType }}</span>
                               </el-form-item>
@@ -38,6 +35,12 @@
                               </el-form-item>
                               <el-form-item label="state：">
                                   <span>{{ props.row.state }}</span>
+                              </el-form-item>
+                              <el-form-item label="comment：">
+                                  <span>{{ props.row.comment}}</span>
+                              </el-form-item>
+                              <el-form-item label="score:">
+                                  <span>{{ props.row.score}}</span>
                               </el-form-item>
                               <!-- <el-form-item >
                                   <template scope="scope">
@@ -79,7 +82,7 @@
                     </el-tab-pane>
                     <el-tab-pane label="评论信息" name="second">
                         <!-- <el-row>
-                            <el-col :span="8" v-for="(item ,index) in hotelCommentList" :key="index"  >
+                            <el-col :span="8" v-for="item  in hotelCommentList" :key="index"  >
                               <el-card :body-style="{ padding: '0px' }">
                                 <img src="../assets/images/hotel1.jpg" class="image">
                                 <div style="padding: 14px;">
@@ -211,8 +214,8 @@
           data(){
             return {
               currentPage: 1, //初始页
-            pagesize: 5, 
-            loading :false,
+              pagesize: 5, 
+              loading :false,
               activeName: 'first',
               count: '',
               addr:'',
@@ -251,8 +254,9 @@
                 if(res.data.data !=  null){
                   this.count = res.data.data.count
                 }
-                //this.getHotelOrdercomment()
+                
                 this.getHotelOrderInfo()
+                this.getHotelOrdercomment()
               })
               
             },
@@ -261,42 +265,57 @@
               console.log(this.count)
               this.hotelInfoList = [];
               for(let i = 0;i<this.count ;i++){
+                let hotelInfo;
                 Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i).then((res) => {
                     if(res.data.data !=  null){
                       res.data.data.time = this.getDate(res.data.data.time)
-                      this.hotelInfoList.push(res.data.data)              
+                      hotelInfo = res.data.data
+                      this.hotelInfoList.push(hotelInfo);
+                      //this.hotelInfoList.push(res.data.data)              
                       //console.log(this.getDate(res.data.data.time))
                     }
                 })
               }
               console.log(this.hotelInfoList)
             },
+
             gotoHotelComment(index,row){
               console.log(index)
               console.log(row)
               this.$router.push({
-              name: 'HotelComment',
-              params: {
-              index:index,
-              }
-          });
+                name: 'HotelComment',
+                params: {
+                  index:index,
+                }
+              });
             },
-            // getHotelOrdercomment(){
-            //   this.hotelCommentList = [];
-            //   for(let i = 0;  i< this.count ;i++){
-            //     Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + this.addr + '/' + i).then((res) => {
-            //         if(res.data.data !=  null && res.data.data.exist =='true'){
-            //           res.data.data.time = this.getDate(res.data.data.time)
-            //           this.content = res.data.data.content
-            //           this.score = res.data.data.score
-            //           this.exist = res.data.data.exist
-            //           this.hotelCommentList.push(res.data.data)
+
+            getHotelOrdercomment(){
+              this.hotelCommentList = [];
+              for(let i = 0;  i< this.count ;i++){
+                Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
+                    if(res.data.data !=  null && res.data.data.exist == true){
+                      // res.data.data.time = this.getDate(res.data.data.time)
+                      // this.content = res.data.data.content
+                      // this.score = res.data.data.score
+                      // this.exist = res.data.data.exist
+                      let info = this.hotelInfoList[i]
+                      info['comment'] = res.data.data.content
+                      info['score'] = res.data.data.score
+                      console.log(info)
+                      this.hotelInfoList[i] = info
+                      //this.hotelCommentList.push(res.data.data)
                      
-            //         }
-            //     })
-            //   }
-            //   this.commentHotelService() 
-            // },
+                    }else{
+                      let info = this.hotelInfoList[i]
+                      info['comment'] = '还未评价'
+                      info['score'] = '未评分'
+                      this.hotelInfoList[i] = info
+                    }
+                })
+              }
+              //this.commentHotelService() 
+            },
             // commentHotelService(){
             //   let commentParams = {
             //     addr:this.commentForm.addr,
