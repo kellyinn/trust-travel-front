@@ -251,7 +251,7 @@
                 }
                 
                 this.getHotelOrderInfo()
-                this.getHotelOrdercomment()
+                //this.getHotelOrdercomment()
               })
               
             },
@@ -261,6 +261,12 @@
               this.hotelInfoList = [];
               for(let i = 0;i<this.count ;i++){
                 let hotelInfo;
+                // let response = Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i);
+                // if(response.data.data!=null){
+                //   response.data.data.time = this.getDate(response.data.data.time)
+                //   hotelInfo = response.data.data
+                //   this.hotelInfoList.push(hotelInfo);
+                // }
                 Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i).then((res) => {
                     if(res.data.data !=  null){
                       res.data.data.time = this.getDate(res.data.data.time)
@@ -270,6 +276,7 @@
                       //console.log(this.getDate(res.data.data.time))
                     }
                 })
+                this.getHotelOrdercomment()
               }
               console.log(this.hotelInfoList)
             },
@@ -288,7 +295,7 @@
             getHotelOrdercomment(){
               this.hotelCommentList = [];
               for(let i = 0;  i< this.count ;i++){
-                Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
+               Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
                     if(res.data.data !=  null && res.data.data.exist == true){
                       // res.data.data.time = this.getDate(res.data.data.time)
                       // this.content = res.data.data.content
