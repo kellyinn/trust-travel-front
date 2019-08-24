@@ -40,19 +40,14 @@
                                   <span>{{ props.row.comment}}</span>
                               </el-form-item>
                               <el-form-item label="score:">
-                                  <span>{{ props.row.score}}</span>
+                                  <span>{{ props.row.score}}分</span>
                               </el-form-item>
-                              <!-- <el-form-item >
-                                  <template scope="scope">
-                                      <el-button type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>  
-                                    </template>                                
-                              </el-form-item> -->
                             </el-form>
                           </template>
                         </el-table-column>
                         <el-table-column
-                          label="酒店名称"
-                          prop="hotel">
+                          label="酒店hash值"
+                          prop="hash">
                         </el-table-column>
                         <el-table-column
                         label="订单价格">
@@ -316,20 +311,7 @@
               }
               //this.commentHotelService() 
             },
-            // commentHotelService(){
-            //   let commentParams = {
-            //     addr:this.commentForm.addr,
-            //     index:this.commentForm.count,
-            //     content:this.commentForm.content,
-            //     score:this.commentForm.score
-            //   }
-            //   Vue.axios.post('http://47.102.216.199:3333' + '/hotel/comment/' ,commentParams).then((res) => {
-            //     console.log(res.data)
-            //         if(res.data.message == 'success' && res.data.data != null){
-            //          this.txhash=res.data.data.txhash   
-            //         }
-            //     })
-            // },
+            
             getDate(value){
               let date = new Date(value);
               let y = date.getFullYear();
