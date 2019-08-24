@@ -40,7 +40,7 @@
                                   <span>{{ props.row.comment}}</span>
                               </el-form-item>
                               <el-form-item label="score:">
-                                  <span>{{ props.row.score}}分</span>
+                                  <span>{{ props.row.score}}</span>
                               </el-form-item>
                             </el-form>
                           </template>
@@ -57,7 +57,8 @@
                        </el-table-column>
                         <el-table-column label="点评订单">
                             <template slot-scope="scope">
-                                <el-button type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>  
+                                <el-button v-if="scope.row.exist == false" type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>
+                                <el-button v-else="scope.row.exist == true" type="text">订单已评价</el-button>  
                               </template> 
                         </el-table-column>
                       </el-table>
@@ -218,7 +219,7 @@
               hotelCommentList: [],
               content:'',
               score:'',
-              exist:'',
+              exist:false,
               txhash:'',
               flag:'',
             }
@@ -293,7 +294,8 @@
                       // res.data.data.time = this.getDate(res.data.data.time)
                       // this.content = res.data.data.content
                       // this.score = res.data.data.score
-                      // this.exist = res.data.data.exist
+                      this.exist = res.data.data.exist
+                      console.log(res.data.data.exist)
                       let info = this.hotelInfoList[i]
                       info['comment'] = res.data.data.content
                       info['score'] = res.data.data.score
@@ -301,7 +303,8 @@
                       this.hotelInfoList[i] = info
                       //this.hotelCommentList.push(res.data.data)
                      
-                    }else{
+                    }else if(res.data.data.exist == false){
+                      this.exist = res.data.data.exist
                       let info = this.hotelInfoList[i]
                       info['comment'] = '还未评价'
                       info['score'] = '未评分'
@@ -309,6 +312,7 @@
                     }
                 })
               }
+              console.log(this.hotelCommentList)
               //this.commentHotelService() 
             },
             
