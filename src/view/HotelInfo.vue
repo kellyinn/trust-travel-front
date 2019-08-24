@@ -34,12 +34,12 @@
                                 <span>{{ props.row.OTA }}</span>
                               </el-form-item>
                               <el-form-item label="state：">
-                                  <span>{{ props.row.state }}</span>
+                                  <span>有效</span>
                               </el-form-item>
-                              <el-form-item label="comment：">
+                              <el-form-item label="评论内容：">
                                   <span>{{ props.row.comment}}</span>
                               </el-form-item>
-                              <el-form-item label="score:">
+                              <el-form-item label="整体打分:">
                                   <span>{{ props.row.score}}</span>
                               </el-form-item>
                             </el-form>
@@ -61,6 +61,12 @@
                                 <el-button v-else type="text">订单已评价</el-button>  
                             </template> 
                         </el-table-column>
+                        <el-table-column
+                        label="下单时间">
+                          <template slot-scope="scope">
+                            <span>{{ scope.row.time }}</span>
+                          </template>                       
+                        </el-table-column>
                       </el-table>
                       <el-footer>
                           <div class="block">
@@ -75,20 +81,6 @@
                               </el-pagination>
                           </div>
                       </el-footer>
-                    </el-tab-pane>
-                    <el-tab-pane label="评论信息" name="second">
-                        <!-- <el-row>
-                            <el-col :span="8" v-for="item  in hotelCommentList" :key="index"  >
-                              <el-card :body-style="{ padding: '0px' }">
-                                <img src="../assets/images/hotel1.jpg" class="image">
-                                <div style="padding: 14px;">
-                                  <p>【评论内容】: {{item.content}}</p>
-                                  <p>【下单时间】: {{item.time}}</p>
-                                  <p>【评价打分】: {{item.score}}(1-5)</p>
-                                </div>
-                              </el-card>
-                            </el-col>
-                        </el-row> -->
                     </el-tab-pane>
                   </el-tabs>
                 
@@ -222,11 +214,11 @@
               exist:'',
               txhash:'',
               flag:'',
+              time:''
             }
           },
           created() {
             this.getHotelOrderCount()
-            
           },
           mounted(){
             this.loading = true;
@@ -262,20 +254,13 @@
               this.hotelInfoList = [];
               for(let i = 0;i<this.count ;i++){
                 let hotelInfo;
-                // let response = Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i);
-                // if(response.data.data!=null){
-                //   response.data.data.time = this.getDate(response.data.data.time)
-                //   hotelInfo = response.data.data
-                //   this.hotelInfoList.push(hotelInfo);
-                // }
                 Vue.axios.get('http://47.102.216.199:3333' + '/hotel/' + JSON.parse(this.addr) + '/' + i).then((res) => {
                     if(res.data.data !=  null){
-                      res.data.data.time = this.getDate(res.data.data.time)
+                      res.data.data.time = this.getDate(parseInt(res.data.data.time))
+                      this.time = res.data.data.time
                       hotelInfo = res.data.data
                       hotelInfo ['index'] = i
                       this.hotelInfoList.push(hotelInfo);
-                      //this.hotelInfoList.push(res.data.data)              
-                      //console.log(this.getDate(res.data.data.time))
                     }
                 })
                 this.getHotelOrdercomment()
@@ -298,14 +283,15 @@
               this.hotelCommentList = [];
               for(let i = 0;  i< this.count ;i++){
                Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
-                      //this.exist=res.data.data.exist
-                
                     if(res.data.data !=  null && res.data.data.exist == true){
                       let info = this.hotelInfoList[i]
-                      
+                      // info.push({"score":res.data.data.score})
+                      // info.push({"comment":res.data.data.content})
+                      // info.push({"exist":res.data.data.exist})
                       info['score'] = res.data.data.score
                       info['comment'] = res.data.data.content
                       info['exist'] = res.data.data.exist
+                      //info['commentHash'] 
                       this.hotelInfoList[i] = info
                      
                     }else{                    
@@ -315,13 +301,10 @@
                       info['comment'] = '还未评价'
                       info['exist'] = false
                       this.hotelInfoList[i] = info
-                     // console.log(this.hotelInfoList[i])
                     }
+
                 })
-                console.log(this.hotelInfoList[i])
               }
-              //console.log(this.hotelCommentList)
-              //this.commentHotelService() 
             },
             
             getDate(value){

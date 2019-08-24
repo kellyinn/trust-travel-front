@@ -5,5 +5,6 @@ const state = {
   users: [], // 所有注册用户
   addRoutes: [],
   orderDate: [],
+  orderSceneDate:[],
 }
 export default state;

@@ -89,8 +89,7 @@
           </ul>
         </div>
         <div class="copyright clearfix">
-          <div class="left-text fl">
-            <span class="iconfont logo">&#xe61c;</span>
+          <div class="left-text fl">     
             <span class="info-text">© 2019 TrustTravel, Inc. All rights reserved.</span>
           </div>
           <div class="right-text fl clearfix">

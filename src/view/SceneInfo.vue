@@ -2,43 +2,82 @@
   <div id="main">
       <Header></Header>
       <el-divider></el-divider>
-      <div class="scene">
-        <div class="scene-content">
-          <p class="scene_title">旅游订单中心</p>
+      <div class="hotel">
+        <div class="hotel-content">
+          <p class="hotel_title">旅游订单中心</p>
           <el-tabs v-model="activeName" >
               <el-tab-pane label="订单详情" name="first">
-                  <el-row>
-                      <el-col :span="8" v-for="(item ,index) in sceneInfoList" :key="index"  >
-                        <el-card :body-style="{ padding: '0px'}">
-                          <img src="../assets/images/scene1.jpg" class="image">
-                          <div style="padding: 14px;">
-                            <p>【旅游景点】: {{item.province}} / {{item.city}} / {{item.name}}</p>
-                            <p>【订单价格】: {{item.price}}</p>
-                            <p>【下单时间】: {{item.time}}</p>
-                            <p>【订单状态】: {{item.state}}</p>
-                            <p>【下单平台】: {{item.OTA}}</p>
-                          </div>
-                        </el-card>
-                      </el-col>
-                </el-row>
+                  <el-table
+                  :data="sceneInfoList.slice( (currentPage - 1) * pagesize, currentPage * pagesize)" 
+                  style="width: 100%"
+                  border default-expand-all>
+                  <el-table-column type="expand">
+                    <template slot-scope="props">
+                      <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="目的地：">
+                          <span>{{ props.row.name}}</span>
+                        </el-form-item>
+                        <el-form-item label="省份：">
+                          <span>{{ props.row.province }}</span>
+                        </el-form-item>
+                        <el-form-item label="城市：">
+                          <span>{{ props.row.city }}</span>
+                        </el-form-item>
+                        <el-form-item label="订单价格：">
+                          <span>￥{{ props.row.price }}</span>
+                        </el-form-item>
+                        <el-form-item label="OTA：">
+                          <span>{{ props.row.OTA }}</span>
+                        </el-form-item>
+                        <el-form-item label="state：">
+                            <span>有效</span>
+                        </el-form-item>
+                        <el-form-item label="评论内容：">
+                            <span>{{ props.row.comment}}</span>
+                        </el-form-item>
+                        <el-form-item label="整体打分:">
+                            <span>{{ props.row.score}}</span>
+                        </el-form-item>
+                      </el-form>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    label="旅游订单hash值"
+                    prop="hash">
+                  </el-table-column>
+                  <el-table-column
+                  label="订单价格">
+                  <template slot-scope="scope">
+                      <span>￥{{ scope.row.price }}</span>
+                  </template>                       
+                 </el-table-column>
+                  <el-table-column label="点评订单">
+                      <template slot-scope="scope">
+                          <el-button v-if="scope.row.exist == false" type="danger" @click="gotoSceneComment(scope.row.index,scope.row)">我要点评</el-button>
+                          <el-button  v-else type="text">订单已评价</el-button>  
+                      </template> 
+                  </el-table-column>
+                  <el-table-column
+                  label="下单时间">
+                  <template slot-scope="scope">
+                      <span>{{ scope.row.time }}</span>
+                  </template>                       
+                 </el-table-column>
+                </el-table>
+                <el-footer>
+                    <div class="block">
+                        <el-pagination 
+                        @size-change="handleSizeChange" 
+                        @current-change="handleCurrentChange" 
+                        :current-page="currentPage" 
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pagesize" 
+                        layout="total, prev, pager, next"
+                        :total="sceneInfoList.length">
+                        </el-pagination>
+                    </div>
+                </el-footer>
               </el-tab-pane>
-
-              <el-tab-pane label="评论信息" name="second">
-                  <el-row>
-                      <el-col :span="8" v-for="(item ,index) in sceneCommentList" :key="index" >
-                        <el-card :body-style="{ padding: '0px' }">
-                          <img src="../assets/images/scene1.jpg" class="image">
-                          <div style="padding: 14px;">
-                            <p>【评论内容】: {{item.content}}</p>
-                            <p>【下单时间】: {{item.time}}</p>
-                            <p>【评价打分】: {{item.score}}(1-5)</p>
-                          </div>
-                        </el-card>
-                      </el-col>
-                </el-row>
-              </el-tab-pane>
-              <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-              <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane> -->
           </el-tabs>
         </div>      
       </div>
@@ -54,83 +93,6 @@
         </div>
   </div>  
 </template>
-<style>
-  .scene{
-    width: 100%;
-   height: 100%;
-  }
-  .scene_title{
-    overflow-wrap: break-word !important;
-    font-family: Circular, PingFang-SC, "Hiragino Sans GB", 微软雅黑, "Microsoft YaHei", "Heiti SC" !important;
-    font-size: 32px !important;
-    font-weight: 800 !important;
-    line-height: 1.125em !important;
-    color: #484848 !important;
-    margin-bottom: 1rem !important;
-    
-  }
-  .scene-content{
-    padding: 0 100px;
-    width: 1000px
-  }
-  .body-style{
-    font-family: Circular, PingFang-SC, "Hiragino Sans GB", 微软雅黑, "Microsoft YaHei", "Heiti SC" !important;
-    font-size: 14px
-  }
-   .copyright{
-        margin:0 20px;
-        border-top: 1px solid rgb(235, 235, 235);
-        padding: 15px 0;
-        /*height: 40px;*/
-        /*line-height: 40px;*/
-  }
-  .left-text{
-          width: 60%;
-          color: rgb(118, 118, 118);
-  } 
-        .logo{
-            font-size: 18px;
-            margin-right: 10px;
-          }
-          .info-text{
-            font-size: 14px;
-            font-weight: bolder;
-          }
-        .right-text{
-          width: 40%;
-          /*background-color: deeppink;*/
-          /*height: 30px;*/
-         
-        }
-        a{
-            display: inline-block;
-            margin-left: 15px;
-            padding: 8px 12px;
-            box-sizing: border-box;
-            border: 1px solid rgb(242, 242, 242);
-            border-radius: 3px;
-            color: rgb(118, 118, 118);
-            font-size: 14px;
-            font-weight: bolder;
-          }
-        &:hover{
-              background-color: #cccc;
-        }
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  }
-</style>
 <script>
   import Header from '../components/Header';
   import Vue from 'vue'
@@ -141,6 +103,9 @@
     },
     data(){
       return {
+        currentPage: 1, //初始页
+        pagesize: 5, 
+       
         activeName: 'first',
         addr: JSON.parse(sessionStorage.getItem('addr')),
         count: '',
@@ -149,24 +114,34 @@
         content:'',
         score:'',
         exist:'',
-       
         txhash:'',
         flag:'',
-       
+        time:''
       }
     },
     created() {
       this.getSceneOrderCount()
-     // this.orderSceneTicket()
     },
     methods: {
+      handleSizeChange: function(size) {
+           this.pagesize = size;
+            //console.log(this.pagesize);
+        },
+        handleCurrentChange: function(currentPage) {
+            this.currentPage = currentPage;
+            //console.log("当前页: " + this.currentPage);
+        },
+        handleChange(val) {
+        //console.log(val);
+      },
       getSceneOrderCount() {
-        Vue.axios.get('http://47.102.216.199:3333' + '/scene/count/' + this.addr).then((res) => {
+        this.addr = sessionStorage.getItem('addr')
+        Vue.axios.get('http://47.102.216.199:3333' + '/scene/count/' + JSON.parse(this.addr)).then((res) => {
+          console.log(res.data)
           if(res.data.data !=  null){
-            this.count = res.data.data.count
+              this.count = res.data.data.count
           }
           this.getSceneOrderInfo()
-          this.getSceneOrdercomment()
         })
        
       },
@@ -175,65 +150,54 @@
         console.log(this.count)
         this.sceneInfoList = [];
         for(let i = 0;i<this.count ;i++){
-          Vue.axios.get('http://47.102.216.199:3333' + '/scene/' + this.addr + '/' + i).then((res) => {
-              if(res.data.data !=  null){
-                res.data.data.time = this.getDate(res.data.data.time)
-                this.sceneInfoList.push(res.data.data)
-                console.log(res.data.data)
-                //console.log(this.getDate(res.data.data.time))
-              }
+          let sceneInfo;
+          Vue.axios.get('http://47.102.216.199:3333' + '/scene/' + JSON.parse(this.addr) + '/' + i).then((res) => {
+            if(res.data.data !=  null){
+                res.data.data.time = this.getDate(parseInt(res.data.data.time))
+                this.time = res.data.data.time
+                sceneInfo = res.data.data
+                sceneInfo ['index'] = i
+                this.sceneInfoList.push(sceneInfo);
+            }
           })
+          this.getSceneOrdercomment()
         } 
+        console.log(this.sceneInfoList)
       },
-
+      gotoSceneComment(index,row){
+              console.log(index)
+              console.log(row)
+              this.$router.push({
+                name: 'SceneComment',
+                params: {
+                  index:index,
+                }
+              });
+            },
       getSceneOrdercomment(){
         this.sceneCommentList = [];
         for(let i = 0;  i< this.count ;i++){
-          Vue.axios.get('http://47.102.216.199:3333' + '/scene/comment/' + this.addr + '/' + i).then((res) => {
-              if(res.data.data !=  null ){
-                res.data.data.time = this.getDate(res.data.data.time)
-                this.content = res.data.data.content
-                this.score = res.data.data.score
-                this.exist = res.data.data.exist
-                this.sceneCommentList.push(res.data.data)
-                console.log(res.data.data)
-              }
+          Vue.axios.get('http://47.102.216.199:3333' + '/scene/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
+            if(res.data.data !=  null && res.data.data.exist == true){
+                      let info = this.sceneInfoList[i]
+                      info['score'] = res.data.data.score
+                      info['comment'] = res.data.data.content
+                      info['exist'] = res.data.data.exist
+                      this.sceneInfoList[i] = info
+                     
+                    }else{                    
+                      let info = this.sceneInfoList[i]
+                      
+                      info['score'] = '未评分'
+                      info['comment'] = '还未评价'
+                      info['exist'] = false
+                      this.sceneInfoList[i] = info
+                    }
           })
         }
-        //this.commentSceneService() 
+       
       },
-      commentSceneService(){
-        let commentParams = {
-          //addr:,
-          //index:this.commentForm.count,
-          //content:this.commentForm.content,
-          //score:this.commentForm.score
-        }
-        Vue.axios.post('http://47.102.216.199:3333' + '/scene/comment/' ,commentParams).then((res) => {
-          console.log(res.data)
-              if(res.data.message == 'success' && res.data.data != null){
-               this.txhash=res.data.data.txhash   
-              }
-          })
-      },
-      //订购旅游门票
-      orderSceneTicket(){
-        let ticketParams = {
-          addr:this.ticketForm.addr,
-          province:this.ticketForm.province,
-          city:this.ticketForm.city,
-          name:this.ticketForm.name,
-          price:this.ticketForm.price,
-          ota:this.ticketForm.ota,
-          flag:this.ticketForm.flag
-        }
-        Vue.axios.post(process.env.BASE_URL + '/scene' ,ticketParams).then((res) => {
-          console.log(res.data)
-              if(res.data.message == 'success' && res.data.data != null){
-               this.txhash=res.data.data.txhash   
-              }
-          })
-      },
+      
       getDate(value){
         let date = new Date(value);
         let y = date.getFullYear();
@@ -252,3 +216,96 @@
     }
   }
 </script>
+<style>
+    .demo-table-expand {
+      font-size: 0;
+    }
+    .demo-table-expand label {
+      width: 90px;
+      color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 100%;
+    }
+          .hotel{
+            width: 100%;
+           height: 100%;
+          }
+          .hotel_title{
+            overflow-wrap: break-word !important;
+            font-family: Circular, PingFang-SC, "Hiragino Sans GB", 微软雅黑, "Microsoft YaHei", "Heiti SC" !important;
+            font-size: 32px !important;
+            font-weight: 800 !important;
+            line-height: 1.125em !important;
+            color: #484848 !important;
+            margin-bottom: 1rem !important;
+          }
+          .hotel-content{
+            padding: 0 100px
+          }
+          .el-tabs {
+            width: 100%
+          }
+          body-style{
+            font-family: Circular, PingFang-SC, "Hiragino Sans GB", 微软雅黑, "Microsoft YaHei", "Heiti SC" !important;
+            font-size: 14px
+          }
+           .copyright{
+                margin:0 20px;
+                border-top: 1px solid rgb(235, 235, 235);
+                padding: 15px 0;
+                /*height: 40px;*/
+                /*line-height: 40px;*/
+          }
+          .left-text{
+                  width: 60%;
+                  /*background-color: pink;*/
+                  color: rgb(118, 118, 118);
+                 
+                  /*height: 30px;*/
+          } 
+                .logo{
+                    font-size: 18px;
+                    margin-right: 10px;
+                  }
+                  .info-text{
+                    font-size: 14px;
+                    font-weight: bolder;
+                  }
+                .right-text{
+                  width: 40%;
+                  /*background-color: deeppink;*/
+                  /*height: 30px;*/
+                 
+                }
+                a{
+                    display: inline-block;
+                    margin-left: 15px;
+                    padding: 8px 12px;
+                    box-sizing: border-box;
+                    border: 1px solid rgb(242, 242, 242);
+                    border-radius: 3px;
+                    color: rgb(118, 118, 118);
+                    font-size: 14px;
+                    font-weight: bolder;
+                  }
+                &:hover{
+                      background-color: #cccc;
+                }
+          .image {
+            width: 100%;
+            display: block;
+          }
+        
+          .clearfix:before,
+          .clearfix:after {
+              display: table;
+              content: "";
+          }
+          
+          .clearfix:after {
+              clear: both
+          }
+</style>

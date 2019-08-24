@@ -1,7 +1,7 @@
 <template>
     <div class="main">
       <div class="top">
-        <Header class=""></Header>
+        <Header></Header>
         <div class="filter clearfix">
           <div class="left-btn fl">
             <el-row>
@@ -38,17 +38,8 @@
           <div class="normal-show" v-if="!showmap">
             <CategoryList :data="this.categoryData" @clickItem="goToDetail"></CategoryList>
             <div class="paging">
-              <!-- <div class="btn-group">
-                <a href="javascript:;" class="btn-item active">1</a>
-                <a href="javascript:;" class="btn-item">2</a>
-                <a href="javascript:;" class="btn-item">3</a>
-                <a href="javascript:;" class="btn-item">...</a>
-                <a href="javascript:;" class="btn-item last">&gt;</a>
-              </div> -->
               <div class="text">
                 <p>1 – 18 共超过300个房源出租</p>
-                <p>包含额外附加费用及适用税费。</p>
-                <p>只有预订后的48小时之内可以免费取消。</p>
               </div>
             </div>
           </div>
@@ -449,14 +440,8 @@
         }
         .nav{
           .item{
-            color: #000;
             &:hover{
-              border-bottom: 2px solid #484848;
-            }
-          }
-          .login{
-            &:hover{
-              border-bottom: 2px solid #484848;
+              border-bottom: 2px solid #E4E4E4;
             }
           }
         }

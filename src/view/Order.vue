@@ -2,6 +2,7 @@
     
     <div class="main">   
       <Header></Header>
+      <el-divider></el-divider>
        <div class="header">
         <div class="nav fl">
           <span class="nav-item active">1，预订您的旅程</span>

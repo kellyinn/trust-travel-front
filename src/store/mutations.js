@@ -24,6 +24,17 @@ const mutations = {
     Vue.set(obj.data, 'endTime', obj.endTime);
     state.orderDate.push(obj.data);
     console.log(state.orderDate);
+  },
+  addSceneOrderData(state,obj){
+    console.log(state.orderSceneDate)
+    state.orderSceneDate.splice(0, 1);
+    Vue.set(obj.data, 'adultCount', obj.adultCount);
+    Vue.set(obj.data, 'babyCount', obj.babyCount);
+    Vue.set(obj.data, 'childrenCount', obj.childrenCount);
+    Vue.set(obj.data, 'startTime', obj.startTime);
+    Vue.set(obj.data, 'endTime', obj.endTime);
+    state.orderSceneDate.push(obj.data);
+    console.log(state.orderSceneDate);
   }
 };
 export default mutations;

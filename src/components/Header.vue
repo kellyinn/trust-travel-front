@@ -29,9 +29,10 @@
     methods: {
       toindex(){
         this.$router.push('/index')
+        location.reload()
       },
       tosceneinfo(){
-        this.$router.push('/sceneInfo')
+        this.$router.push('/sceneInfo')      
       },
       tohotelinfo(){
         this.$router.push('/hotelInfo')

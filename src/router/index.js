@@ -4,14 +4,15 @@ import Router from 'vue-router';
 import Category from '@/view/Category';
 import Datail from '@/view/Datail';
 import Order from '@/view/Order';
-import HotelDetail from '@/view/HotelDetail';
+import SceneOrder from '@/view/SceneOrder';
+import SceneDetail from '@/view/SceneDetail';
 // 引入公共组件
 import Login from '@/view/Login';
 import Register from '@/view/Register';
 import HotelInfo from '@/view/HotelInfo';
 import SceneInfo from '@/view/SceneInfo';
 import HotelComment from '@/view/HotelComment';
-
+import SceneComment from '@/view/SceneComment';
 Vue.use(Router);
 
 export default new Router({
@@ -53,15 +54,20 @@ export default new Router({
       props: true
     },
     {
-      path: '/hoteldetail/:id',
-      name: 'HotelDetail',
-      component: HotelDetail,
+      path: '/scenedetail/:id',
+      name: 'SceneDetail',
+      component: SceneDetail,
       props: true
     },
     {
       path: '/order',
       name: 'Order',
       component: Order
+    },
+    {
+      path: '/sceneOrder',
+      name: 'SceneOrder',
+      component: SceneOrder
     },
     {
       path: '/sceneInfo',
@@ -77,6 +83,11 @@ export default new Router({
       path: '/hotelComment/:index',
       name: 'HotelComment',
       component: HotelComment,
+    },
+    {
+      path: '/sceneComment/:index',
+      name: 'SceneComment',
+      component: SceneComment,
     },
   ]
 });

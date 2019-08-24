@@ -44,7 +44,7 @@
         gotoDetail(item,index){
         console.log(item)
         this.$router.push({
-            name: 'HotelDetail',
+            name: 'SceneDetail',
             params: {
               id: item.id,
             }

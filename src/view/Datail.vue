@@ -11,8 +11,6 @@
             <a href="javascript:;" class="item">评价</a>
             <a href="javascript:;" class="item">可订日期</a>
             <a href="javascript:;" class="item">位置</a>
-            <a href="javascript:;" class="item">须知</a>
-            <a href="javascript:;" class="item">房东</a>
           </div>
           <div class="info-wrap clearfix">
             <div class="goods-info fl">
@@ -52,7 +50,7 @@
                   <a href="javascript:;" class="more" @click="PopShow('about')"
                      v-if="this.infoData.sectioned_description && this.infoData.sectioned_description.summary.split('\n').length > 1"
                   >
-                    更多房源介绍
+                    更多信息介绍
                   </a>
                 </div>
               </div>
@@ -398,8 +396,7 @@
             babyCount: this.babyCount,
             startTime: this.timeArray[0],
             endTime: this.timeArray[1],
-            totalPrice:this.totalPrice,
-            
+            totalPrice:this.totalPrice,         
           });
           this.$router.push({
             name: 'Order'
@@ -446,14 +443,8 @@
       }
       .nav{
         .item{
-          color: #000;
           &:hover{
-            border-bottom: 2px solid #484848;
-          }
-        }
-        .login{
-          &:hover{
-            border-bottom: 2px solid #484848;
+            border-bottom: 2px solid #E4E4E4;
           }
         }
       }

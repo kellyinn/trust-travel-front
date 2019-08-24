@@ -114,13 +114,15 @@ import Header from '../components/Header.vue'
               console.log(res.data)
               if(res.data.message == "success"){
                 this.commentHash = res.data.data.txHash
+                this.$message({
+                  type: 'success',
+                  message: '评论提交成功'
+                });
+                this.$router.push('/hotelInfo')
                 console.log(this.commentHash)
               }
             })
-            this.$message({
-              type: 'success',
-              message: '评论提交成功'
-            });
+            
           } else {
             console.log('error submit!!');
             return false;
