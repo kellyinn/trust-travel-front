@@ -16,4 +16,4 @@ npm run build
 
 ```
 
-![项目图片](https://imgchr.com/i/m6Idyj)
+![项目图片](https://s2.ax1x.com/2019/08/24/m6Idyj.png)
