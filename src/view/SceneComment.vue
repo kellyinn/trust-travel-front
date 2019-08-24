@@ -118,7 +118,7 @@
                         type: 'success',
                         message: '评论提交成功'
                       });
-                      this.$router.push('/sceneInfo')
+                     // this.$router.push('/sceneInfo')
                       console.log(this.commentHash)
                     }
                   })

@@ -42,6 +42,12 @@
                               <el-form-item label="整体打分:">
                                   <span>{{ props.row.score}}</span>
                               </el-form-item>
+                              <el-form-item label="评论Hash：">
+                                <span>{{ props.row.comment_hash}}</span>
+                              </el-form-item>
+                              <el-form-item label="评论时间：">
+                                <span>{{ props.row.comment_time}}</span>
+                              </el-form-item>
                             </el-form>
                           </template>
                         </el-table-column>
@@ -109,7 +115,7 @@
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
-    width: 100%;
+    width: 50%;
   }
         .hotel{
           width: 100%;
@@ -291,6 +297,8 @@
                       info['score'] = res.data.data.score
                       info['comment'] = res.data.data.content
                       info['exist'] = res.data.data.exist
+                      info['comment_hash'] = res.data.data.hash
+                      info['comment_time'] = this.getDate(parseInt(res.data.data.time))
                       //info['commentHash'] 
                       this.hotelInfoList[i] = info
                      
@@ -300,6 +308,8 @@
                       info['score'] = '未评分'
                       info['comment'] = '还未评价'
                       info['exist'] = false
+                      info['comment_hash'] = '无'
+                      info['comment_time'] = '无'
                       this.hotelInfoList[i] = info
                     }
 
