@@ -13,3 +13,10 @@ npm run dev
 
 # 项目打包
 npm run build
+<<<<<<< HEAD
+=======
+
+```
+
+![项目图片](https://s2.ax1x.com/2019/08/24/m6Idyj.png)
+>>>>>>> fc154bb582ff7bc8149f92f84974b0616a41ffb2
