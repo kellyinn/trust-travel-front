@@ -46,7 +46,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column
-                          label="酒店hash值"
+                          label="酒店订单hash值"
                           prop="hash">
                         </el-table-column>
                         <el-table-column
@@ -302,12 +302,10 @@
                 
                     if(res.data.data !=  null && res.data.data.exist == true){
                       let info = this.hotelInfoList[i]
-
                       
                       info['score'] = res.data.data.score
                       info['comment'] = res.data.data.content
                       info['exist'] = res.data.data.exist
-                      
                       this.hotelInfoList[i] = info
                      
                     }else{                    
