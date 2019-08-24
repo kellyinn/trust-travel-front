@@ -57,8 +57,8 @@
                        </el-table-column>
                         <el-table-column label="点评订单">
                             <template slot-scope="scope">
-                                <el-button v-if="scope.row.exist == false" type="danger" @click="gotoHotelComment(scope.$index,scope.row)">我要点评</el-button>
-                                <el-button v-else-if="scope.row.exist==true" type="text">订单已评价</el-button>  
+                                <el-button v-if="scope.row.exist == false" type="danger" @click="gotoHotelComment(scope.row.index,scope.row)">我要点评</el-button>
+                                <el-button v-else type="text">订单已评价</el-button>  
                             </template> 
                         </el-table-column>
                       </el-table>
@@ -272,6 +272,7 @@
                     if(res.data.data !=  null){
                       res.data.data.time = this.getDate(res.data.data.time)
                       hotelInfo = res.data.data
+                      hotelInfo ['index'] = i
                       this.hotelInfoList.push(hotelInfo);
                       //this.hotelInfoList.push(res.data.data)              
                       //console.log(this.getDate(res.data.data.time))
@@ -297,22 +298,24 @@
               this.hotelCommentList = [];
               for(let i = 0;  i< this.count ;i++){
                Vue.axios.get('http://47.102.216.199:3333' + '/hotel/comment/' + JSON.parse(this.addr) + '/' + i).then((res) => {
-                      this.exist=res.data.data.exist
-                      console.log( this.exist)
+                      //this.exist=res.data.data.exist
+                
                     if(res.data.data !=  null && res.data.data.exist == true){
                       let info = this.hotelInfoList[i]
 
-                      info['comment'] = res.data.data.content
+                      
                       info['score'] = res.data.data.score
-                      //console.log(info)
+                      info['comment'] = res.data.data.content
+                      info['exist'] = res.data.data.exist
+                      
                       this.hotelInfoList[i] = info
-                      //console.log(this.hotelInfoList[i])
-                      //this.hotelCommentList.push(res.data.data)
                      
-                    }else if(res.data.data.exist == false){                    
+                    }else{                    
                       let info = this.hotelInfoList[i]
-                      info['comment'] = '还未评价'
+                      
                       info['score'] = '未评分'
+                      info['comment'] = '还未评价'
+                      info['exist'] = false
                       this.hotelInfoList[i] = info
                      // console.log(this.hotelInfoList[i])
                     }
